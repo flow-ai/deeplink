@@ -17,13 +17,13 @@ const decode = deeplink => {
     throw new Error('Deeplink of wrong type')
   }
 
-  if (!deeplink.startsWith('enc__')) {
+  if (!deeplink.startsWith('__')) {
     return {
       value: deeplink
     }
   }
 
-  const [ , strToDecode ] = deeplink.split('enc__')
+  const [ , strToDecode ] = deeplink.split('__')
 
   const decodedDeeplink = JSON.parse(decoder(strToDecode))
 

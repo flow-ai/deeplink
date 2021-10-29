@@ -33,7 +33,7 @@ const encode = params => {
     s: set
   }
 
-  return `enc__${encoder(JSON.stringify(deeplinkParams))}`
+  return `__${encoder(JSON.stringify(deeplinkParams))}`
 }
 
 export default encode
