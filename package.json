@@ -1,6 +1,6 @@
 {
   "name": "flow-deeplink",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Flow deeplink builder",
   "main": "lib/index.js",
   "scripts": {

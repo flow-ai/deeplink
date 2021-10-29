@@ -3,7 +3,6 @@ import { decoder, isNotString } from './helpers'
 /**
  * @param {string} deeplink - required, deeplink to decode
  * @returns {{
- *  type: string,
  *  value: string,
  *  language?: string,
  *  region?: string,
@@ -11,7 +10,7 @@ import { decoder, isNotString } from './helpers'
  * }} decoded base64 params or given string as event name
  */
 const decode = deeplink => {
-  if (typeof deeplink === 'object' && deeplink.type && deeplink.value) {
+  if (typeof deeplink === 'object' && deeplink.value) {
     return deeplink
   }
   if (isNotString(deeplink)) {
@@ -20,7 +19,6 @@ const decode = deeplink => {
 
   if (!deeplink.startsWith('enc__')) {
     return {
-      type: 'event',
       value: deeplink
     }
   }
@@ -30,7 +28,6 @@ const decode = deeplink => {
   const decodedDeeplink = JSON.parse(decoder(strToDecode))
 
   return {
-    type: decodedDeeplink.t === 'e' ? 'event' : 'text',
     value: decodedDeeplink.v,
     language: decodedDeeplink.l,
     region: decodedDeeplink.r,
