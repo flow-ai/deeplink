@@ -31,7 +31,12 @@ const decode = deeplink => {
     value: decodedDeeplink.v,
     language: decodedDeeplink.l,
     region: decodedDeeplink.r,
-    set: decodedDeeplink.s
+    set: decodedDeeplink.s,
+    type: decodedDeeplink.t,
+    params: decodedDeeplink.p?.map(p => ({
+      label: p.l,
+      value: p.v
+    }))
   }
 }
 
