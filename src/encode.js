@@ -1,10 +1,10 @@
-import { encoder, isNotString } from './helpers'
+import { encoder, isNotString, cutType } from './helpers'
 
 /**
  * Encode given data into base64 string
  * @param {Object} params
- * @param {string} params.channelName - optional
  * @param {string} params.value - required, event name or text
+ * @param {string} params.channelName - optional
  * @param {string} params.language - optional
  * @param {string} params.region - optional
  * @param {string} params.set - optional
@@ -17,7 +17,7 @@ const encode = params => {
     throw new Error('Params should be object')
   }
 
-  const { channelName, value } = params
+  const { value } = params
 
   if (!value) {
     throw new Error('Required param is missing')
@@ -33,11 +33,11 @@ const encode = params => {
     l: language,
     r: region,
     s: set,
-    t: type
+    t: cutType(type)
   }
 
   if (params.params) {
-    deeplinkParams.params = params.params.map(param => ({
+    deeplinkParams.p = params.params.map(param => ({
       l: param.label,
       v: param.value
     }))

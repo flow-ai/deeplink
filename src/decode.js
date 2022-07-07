@@ -1,4 +1,4 @@
-import { decoder, isNotString } from './helpers'
+import { decoder, isNotString, uncutType } from './helpers'
 
 /**
  * @param {string} deeplink - required, deeplink to decode
@@ -32,7 +32,7 @@ const decode = deeplink => {
     language: decodedDeeplink.l,
     region: decodedDeeplink.r,
     set: decodedDeeplink.s,
-    type: decodedDeeplink.t,
+    type: uncutType(decodedDeeplink.t),
     params: decodedDeeplink.p?.map(p => ({
       label: p.l,
       value: p.v
