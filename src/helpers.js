@@ -1,6 +1,7 @@
 const TYPES = {
   event: 'e',
-  text: 't'
+  text: 't',
+  flow: 'f'
 }
 
 /**
