@@ -3,13 +3,13 @@ import { encoder, isNotString, cutType } from './helpers'
 /**
  * Encode given data into base64 string
  * @param {Object} params
- * @param {string} params.value - required, event name or text
+ * @param {string} params.value - required, event name, flowImmutableId or text
  * @param {string} params.channelName - optional
  * @param {string} params.language - optional
  * @param {string} params.region - optional
  * @param {string} params.set - optional
  * @param {Array<{}>} params.params - optional
- * @param {string} params.type - optional, event or  text
+ * @param {string} params.type - optional, event, flow or  text
  * @returns {string} base64 encoded params
  */
 const encode = params => {
