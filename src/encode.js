@@ -9,7 +9,8 @@ import { encoder, isNotString, cutType } from './helpers'
  * @param {string} params.region - optional
  * @param {string} params.set - optional
  * @param {Array<{}>} params.params - optional
- * @param {string} params.type - optional, event, flow or  text
+ * @param {string} params.type - optional, event, flow or text
+ * @param {string} params.buttonId - optional
  * @returns {string} base64 encoded params
  */
 const encode = params => {
@@ -26,14 +27,15 @@ const encode = params => {
     throw new Error('Required param of wrong type')
   }
 
-  const { language, region, set, type } = params
+  const { language, region, set, type, buttonId } = params
 
   const deeplinkParams = {
     v: value.trim(),
     l: language,
     r: region,
     s: set,
-    t: cutType(type)
+    t: cutType(type),
+    b: buttonId
   }
 
   if (params.params) {

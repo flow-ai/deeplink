@@ -6,7 +6,10 @@ import { decoder, isNotString, uncutType } from './helpers'
  *  value: string,
  *  language?: string,
  *  region?: string,
- *  set?: string
+ *  set?: string,
+ *  type: string,
+ *  buttonId: string,
+ *  params: {Array<{}>}
  * }} decoded base64 params or given string as event name
  */
 const decode = deeplink => {
@@ -23,7 +26,7 @@ const decode = deeplink => {
     }
   }
 
-  const [ , strToDecode ] = deeplink.split('__')
+  const [, strToDecode] = deeplink.split('__')
 
   const decodedDeeplink = JSON.parse(decoder(strToDecode))
 
@@ -33,6 +36,7 @@ const decode = deeplink => {
     region: decodedDeeplink.r,
     set: decodedDeeplink.s,
     type: uncutType(decodedDeeplink.t),
+    buttonId: decodedDeeplink.b,
     params: decodedDeeplink.p?.map(p => ({
       label: p.l,
       value: p.v
