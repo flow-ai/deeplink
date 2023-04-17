@@ -9,12 +9,13 @@ import { decoder, isNotString, uncutType } from './helpers'
  *  set?: string,
  *  type: string,
  *  buttonId: string,
- *  params: {Array<{}>}
+ *  params: {Array<Object>},
+ *  decoded: boolean
  * }} decoded base64 params or given string as event name
  */
 const decode = deeplink => {
   if (typeof deeplink === 'object' && deeplink.value) {
-    return deeplink
+    return { ...deeplink, decoded: false }
   }
   if (isNotString(deeplink)) {
     throw new Error('Deeplink of wrong type')
@@ -22,7 +23,8 @@ const decode = deeplink => {
 
   if (!deeplink.startsWith('__')) {
     return {
-      value: deeplink
+      value: deeplink,
+      decoded: false
     }
   }
 
@@ -40,7 +42,8 @@ const decode = deeplink => {
     params: decodedDeeplink.p?.map(p => ({
       label: p.l,
       value: p.v
-    }))
+    })),
+    decoded: true
   }
 }
 
