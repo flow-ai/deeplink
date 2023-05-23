@@ -38,11 +38,16 @@ const encode = params => {
     b: buttonId
   }
 
-  if (params.params) {
+  if (Array.isArray(params.params)) {
     deeplinkParams.p = params.params.map(param => ({
       l: param.label,
       v: param.value
     }))
+  } else if (params.params && typeof params.params === 'object') {
+    deeplinkParams.p = {}
+    Object.keys(params.params).forEach(key => {
+      deeplinkParams.p[key] = [{ v: params.params[key][0].value }]
+    })
   }
 
   return `__${encoder(JSON.stringify(deeplinkParams))}`

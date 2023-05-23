@@ -32,6 +32,20 @@ const decode = deeplink => {
 
   const decodedDeeplink = JSON.parse(decoder(strToDecode))
 
+  let params = []
+
+  if (Array.isArray(decodedDeeplink.p)) {
+    params = decodedDeeplink.p.map(p => ({
+      label: p.l,
+      value: p.v
+    }))
+  } else if (decodedDeeplink.p && typeof decodedDeeplink.p === 'object') {
+    params = {}
+    Object.keys(decodedDeeplink.p).forEach(key => {
+      params[key] = [{ value: decodedDeeplink.p[key][0].v }]
+    })
+  }
+
   return {
     value: decodedDeeplink.v,
     language: decodedDeeplink.l,
@@ -39,10 +53,7 @@ const decode = deeplink => {
     set: decodedDeeplink.s,
     type: uncutType(decodedDeeplink.t),
     buttonId: decodedDeeplink.b,
-    params: decodedDeeplink.p?.map(p => ({
-      label: p.l,
-      value: p.v
-    })),
+    params,
     decoded: true
   }
 }
