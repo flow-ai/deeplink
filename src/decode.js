@@ -36,18 +36,18 @@ const decode = deeplink => {
 
   if (Array.isArray(decodedDeeplink.p)) {
     params = decodedDeeplink.p.map(p => ({
-      label: p.l,
-      value: p.v
+      label: decodeURIComponent(p.l),
+      value: decodeURIComponent(p.v)
     }))
   } else if (decodedDeeplink.p && typeof decodedDeeplink.p === 'object') {
     params = {}
     Object.keys(decodedDeeplink.p).forEach(key => {
-      params[key] = [{ value: decodedDeeplink.p[key][0].v }]
+      params[decodeURIComponent(key)] = [{ value: decodeURIComponent(decodedDeeplink.p[key][0].v) }]
     })
   }
 
   return {
-    value: decodedDeeplink.v,
+    value: decodeURIComponent(decodedDeeplink.v),
     language: decodedDeeplink.l,
     region: decodedDeeplink.r,
     set: decodedDeeplink.s,

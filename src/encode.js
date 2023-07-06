@@ -30,7 +30,7 @@ const encode = params => {
   const { language, region, set, type, buttonId } = params
 
   const deeplinkParams = {
-    v: value.trim(),
+    v: encodeURIComponent(value.trim()),
     l: language,
     r: region,
     s: set,
@@ -40,13 +40,13 @@ const encode = params => {
 
   if (Array.isArray(params.params)) {
     deeplinkParams.p = params.params.map(param => ({
-      l: param.label,
-      v: param.value
+      l: encodeURIComponent(param.label),
+      v: encodeURIComponent(param.value)
     }))
   } else if (params.params && typeof params.params === 'object') {
     deeplinkParams.p = {}
     Object.keys(params.params).forEach(key => {
-      deeplinkParams.p[key] = [{ v: params.params[key][0].value }]
+      deeplinkParams.p[encodeURIComponent(key)] = [{ v: encodeURIComponent(params.params[key][0].value) }]
     })
   }
 
