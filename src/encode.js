@@ -50,6 +50,18 @@ const encode = params => {
     })
   }
 
+  if (Array.isArray(params.tags)) {
+    deeplinkParams.tg = params.tags.map(param => ({
+      l: encodeURIComponent(param.label),
+      v: encodeURIComponent(param.value)
+    }))
+  } else if (params.tags && typeof params.tags === 'object') {
+    deeplinkParams.tg = {}
+    Object.keys(params.tags).forEach(key => {
+      deeplinkParams.tg[encodeURIComponent(key)] = [{ v: encodeURIComponent(params.tags[key][0].value) }]
+    })
+  }
+
   return `__${encoder(JSON.stringify(deeplinkParams))}`
 }
 
